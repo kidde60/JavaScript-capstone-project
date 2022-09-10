@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(108, 148, 0);
+}
+
+.header {
+  padding: 10px 5%;
+  background-color: rgb(20, 20, 20);
+}
+
+.logo {
+  height: 25px;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+}
+
+.container {
+  padding: 5% 5%;
+  background-color: lightgray;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.card-item {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid rgb(108, 148, 0);
+  border-radius: 8px;
+  background-color: rgb(108, 148, 0);
+  color: white;
+}
+
+.card-item img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 3%;
+}
+
+hr {
+  border-top: 1px solid darkgray;
+  border-bottom: none;
+}
+
+.card-item hr {
+  border-top: 1px solid lightgray;
+  border-bottom: none;
+}
+
+.show-title {
+  width: 65%;
+}
+
+.title-and-likes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-btn {
+  padding: 2% 8%;
+  width: fit-content;
+  border: 1px solid white;
+  border-radius: 2px;
+  color: white;
+  background-color: transparent;
+  font-size: inherit;
+}
+
+.popup {
+  width: 70vw;
+  margin: 10px auto;
+  background: grey;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.closeBtn {
+  font-size: 30px;
+  padding: 10px;
+  background: grey;
+  border: none;
+}
+
+.image {
+  width: 100%;
+}
+
+.modal {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 20px;
+  background-color: rgb(20, 20, 20);
+  color: white;
+  padding: 4%;
+  border-radius: 10px;
+}
+
+.modal img {
+  width: 100%;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.modal-content h4 {
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-title a:hover {
+  color: darkgreen;
+}
+
+.modal-sub-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.genres {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.genres li {
+  background-color: rgb(108, 148, 0);
+  padding: 3px 10px;
+  width: fit-content;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.all-comments {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.display-comments li {
+  padding: 4px 10px;
+  margin-bottom: 4px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input,
+textarea {
+  font-size: inherit;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.form button {
+  padding: 10px 10px;
+  width: 100px;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  background-color: rgb(108, 148, 0);
+}
+
+button:hover {
+  cursor: pointer;
+  color: rgb(108, 148, 0);
+  background-color: white;
+}
+
+.fa-star {
+  color: orange;
+}
+
+footer {
+  background-color: rgb(20, 20, 20);
+  color: white;
+  padding: 30px 5%;
+  font-size: 0.8rem;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .logo {
+    height: 20px;
+  }
+
+  .nav-list {
+    display: none;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .show-title {
+    width: 75%;
+  }
+
+  .comment-btn {
+    padding: 2% 8%;
+    width: fit-content;
+    border: 1px solid white;
+    border-radius: 2px;
+    color: white;
+    background-color: transparent;
+    font-size: inherit;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  .modal-container {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    padding: 6%;
+    background-color: rgba(0, 0, 0, 0.822);
+  }
+
+  .modal {
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+  }
+
+  .fa-times {
+    display: none;
+  }
+
+  .modal img {
+    width: 100%;
+    margin-bottom: 2%;
+  }
+
+  footer {
+    text-align: center;
+  }
+}
