@@ -123,8 +123,8 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="app-container">
-        <div className="show-count">
+      <div className="container-max-width">
+        <div className="text-cyan-300 font-semibold mb-6">
           {items.length
             ? `Displaying ${items.length} ${query ? "Search Results" : "Trending Movies & TV Shows"}`
             : ""}
@@ -133,11 +133,11 @@ export default function HomePage() {
         <main>
           <section>
             {loading && (
-              <div className="status-message">Loading trending titles...</div>
+              <div className="notice">Loading trending titles...</div>
             )}
-            {error && <div className="status-message error">{error}</div>}
+            {error && <div className="notice error">{error}</div>}
 
-            <div className="main-container">
+            <div className="grid grid-cols-4 gap-8 mb-[5%]">
               {items.map((item) => {
                 const title = item.title || item.name;
                 const date = item.release_date || item.first_air_date;
@@ -151,7 +151,7 @@ export default function HomePage() {
                   <button
                     key={item.id}
                     type="button"
-                    className="card-item"
+                    className="card-media"
                     onClick={() => handleCardClick(item)}
                   >
                     {poster && (
@@ -159,8 +159,8 @@ export default function HomePage() {
                         <img src={poster} alt={displayTitle} />
                       </div>
                     )}
-                    <div className="card-text">
-                      <h2 className="movie-title">{displayTitle}</h2>
+                    <div className="flex flex-col gap-4 p-[4%] text-sm">
+                      <h2>{displayTitle}</h2>
                     </div>
                   </button>
                 );
@@ -168,10 +168,10 @@ export default function HomePage() {
             </div>
 
             {selected && (
-              <div className="modal-backdrop" onClick={closeModal}>
-                <div className="modal" onClick={(e) => e.stopPropagation()}>
+              <div className="fixed inset-0 bg-black bg-opacity-60 z-49 flex items-center justify-center p-8" onClick={closeModal}>
+                <div className="h-[90vh] w-[80vw] bg-white opacity-97 p-[2%] rounded-[10px] overflow-y-auto overflow-x-hidden z-50 flex flex-col" onClick={(e) => e.stopPropagation()}>
                   <span
-                    className="close-btn"
+                    className="absolute right-[4%] top-[4%] cursor-pointer text-4xl text-cyan-300"
                     onClick={(e) => {
                       e.stopPropagation();
                       closeModal();
@@ -179,14 +179,15 @@ export default function HomePage() {
                   >
                     &times;
                   </span>
-                  <div className="modal-content" id="modal-modal-content">
+                  <div className="flex-grow flex flex-row gap-[4%] items-center overflow-x-hidden">
                     {selected.poster_path && (
                       <img
                         src={`https://image.tmdb.org/t/p/w500${selected.poster_path}`}
                         alt={selected.title || selected.name}
+                        className="w-auto h-[80vh] rounded-lg object-cover"
                       />
                     )}
-                    <div className="show-details">
+                    <div className="flex flex-col gap-6">
                       <div>
                         {/* Title, year, genres, runtime, overview */}
                         {(() => {
@@ -223,39 +224,39 @@ export default function HomePage() {
                           return (
                             <>
                               <h1>{displayTitle}</h1>
-                              {meta && <p className="meta-text">{meta}</p>}
+                              {meta && <p className="text-xs font-semibold text-black">{meta}</p>}
                             </>
                           );
                         })()}
                       </div>
 
-                      <p>
+                      <p className="text-black">
                         {selected.overview || "No description could be found."}
                       </p>
 
                       <div>
-                        {" "}
                         {/* Top billed cast */}
                         {selected.credits?.cast?.length > 0 && (
-                          <div className="cast-section">
-                            <h3>Top Billed Cast</h3>
-                            <div className="cast-list">
+                          <div>
+                            <h3 className="text-base">Top Billed Cast</h3>
+                            <div className="flex gap-4 overflow-x-auto overflow-y-hidden mt-4">
                               {selected.credits.cast
                                 .slice(0, 10)
                                 .map((person) => (
                                   <Link
                                     key={person.id}
                                     href={`/person/${person.id}`}
-                                    className="cast-card"
+                                    className="block flex-shrink-0 w-[100px] no-underline cursor-pointer"
                                     onClick={(e) => e.stopPropagation()}
                                   >
                                     {person.profile_path && (
                                       <img
                                         src={`https://image.tmdb.org/t/p/w185${person.profile_path}`}
                                         alt={person.name}
+                                        className="w-[100px] h-[150px] rounded object-cover mb-2"
                                       />
                                     )}
-                                    <p>{person.name}</p>
+                                    <p className="text-xs font-semibold text-black m-0">{person.name}</p>
                                   </Link>
                                 ))}
                             </div>
