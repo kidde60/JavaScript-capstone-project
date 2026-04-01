@@ -124,7 +124,7 @@ export default function HomePage() {
   return (
     <>
       <div className="container-max-width">
-        <div className="text-cyan-300 font-semibold mb-6">
+        <div className="text-cyan-300 font-semibold mb-4 sm:mb-5 md:mb-6 text-sm sm:text-base">
           {items.length
             ? `Displaying ${items.length} ${query ? "Search Results" : "Trending Movies & TV Shows"}`
             : ""}
@@ -137,7 +137,7 @@ export default function HomePage() {
             )}
             {error && <div className="notice error">{error}</div>}
 
-            <div className="grid grid-cols-4 gap-8 mb-[5%]">
+            <div className="responsive-grid mb-6 sm:mb-8 md:mb-10">
               {items.map((item) => {
                 const title = item.title || item.name;
                 const date = item.release_date || item.first_air_date;
@@ -155,11 +155,11 @@ export default function HomePage() {
                     onClick={() => handleCardClick(item)}
                   >
                     {poster && (
-                      <div>
+                      <div className="w-full">
                         <img src={poster} alt={displayTitle} />
                       </div>
                     )}
-                    <div className="flex flex-col gap-4 p-[4%] text-sm">
+                    <div className="card-media-content">
                       <h2>{displayTitle}</h2>
                     </div>
                   </button>
@@ -168,26 +168,29 @@ export default function HomePage() {
             </div>
 
             {selected && (
-              <div className="fixed inset-0 bg-black bg-opacity-60 z-49 flex items-center justify-center p-8" onClick={closeModal}>
-                <div className="h-[90vh] w-[80vw] bg-white opacity-97 p-[2%] rounded-[10px] overflow-y-auto overflow-x-hidden z-50 flex flex-col" onClick={(e) => e.stopPropagation()}>
-                  <span
-                    className="absolute right-[4%] top-[4%] cursor-pointer text-4xl text-cyan-300"
+              <div className="modal-overlay" onClick={closeModal}>
+                <div className="modal-content p-3 sm:p-4 md:p-6" onClick={(e) => e.stopPropagation()}>
+                  <button
+                    className="modal-close-btn"
                     onClick={(e) => {
                       e.stopPropagation();
                       closeModal();
                     }}
+                    aria-label="Close modal"
                   >
                     &times;
-                  </span>
-                  <div className="flex-grow flex flex-row gap-[4%] items-center overflow-x-hidden">
+                  </button>
+                  <div className="flex flex-col gap-4 sm:gap-6 md:flex-row md:gap-6 lg:gap-8 items-start overflow-x-hidden flex-grow">
                     {selected.poster_path && (
-                      <img
-                        src={`https://image.tmdb.org/t/p/w500${selected.poster_path}`}
-                        alt={selected.title || selected.name}
-                        className="w-auto h-[80vh] rounded-lg object-cover"
-                      />
+                      <div className="w-full md:w-auto md:flex-shrink-0">
+                        <img
+                          src={`https://image.tmdb.org/t/p/w500${selected.poster_path}`}
+                          alt={selected.title || selected.name}
+                          className="w-full md:w-auto md:max-h-[70vh] rounded-lg object-cover"
+                        />
+                      </div>
                     )}
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 flex-grow w-full">
                       <div>
                         {/* Title, year, genres, runtime, overview */}
                         {(() => {
@@ -223,14 +226,14 @@ export default function HomePage() {
 
                           return (
                             <>
-                              <h1>{displayTitle}</h1>
-                              {meta && <p className="text-xs font-semibold text-black">{meta}</p>}
+                              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-800">{displayTitle}</h1>
+                              {meta && <p className="text-xs sm:text-sm font-semibold text-gray-600">{meta}</p>}
                             </>
                           );
                         })()}
                       </div>
 
-                      <p className="text-black">
+                      <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
                         {selected.overview || "No description could be found."}
                       </p>
 
@@ -238,25 +241,25 @@ export default function HomePage() {
                         {/* Top billed cast */}
                         {selected.credits?.cast?.length > 0 && (
                           <div>
-                            <h3 className="text-base">Top Billed Cast</h3>
-                            <div className="flex gap-4 overflow-x-auto overflow-y-hidden mt-4">
+                            <h3 className="text-base sm:text-lg text-gray-800 mb-3 sm:mb-4">Top Billed Cast</h3>
+                            <div className="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto overflow-y-hidden pb-2">
                               {selected.credits.cast
                                 .slice(0, 10)
                                 .map((person) => (
                                   <Link
                                     key={person.id}
                                     href={`/person/${person.id}`}
-                                    className="block flex-shrink-0 w-[100px] no-underline cursor-pointer"
+                                    className="block flex-shrink-0 w-20 sm:w-24 no-underline cursor-pointer"
                                     onClick={(e) => e.stopPropagation()}
                                   >
                                     {person.profile_path && (
                                       <img
                                         src={`https://image.tmdb.org/t/p/w185${person.profile_path}`}
                                         alt={person.name}
-                                        className="w-[100px] h-[150px] rounded object-cover mb-2"
+                                        className="w-20 sm:w-24 h-28 sm:h-36 rounded object-cover mb-2"
                                       />
                                     )}
-                                    <p className="text-xs font-semibold text-black m-0">{person.name}</p>
+                                    <p className="text-xs font-semibold text-gray-700 m-0 line-clamp-2">{person.name}</p>
                                   </Link>
                                 ))}
                             </div>

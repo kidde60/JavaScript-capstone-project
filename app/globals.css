@@ -13,63 +13,104 @@
 html,
 body {
   min-height: 100vh;
+  background-color: rgb(20, 20, 20);
+  color: white;
 }
 
 body {
-  @apply bg-dark text-white flex flex-col;
+  @apply flex flex-col bg-dark text-white;
 }
 
 a {
   @apply text-cyan-300 no-underline;
 }
 
+h1 {
+  @apply text-2xl sm:text-3xl md:text-4xl font-bold;
+}
+
+h2 {
+  @apply text-xl sm:text-2xl font-semibold;
+}
+
+h3 {
+  @apply text-lg sm:text-xl font-semibold;
+}
+
+p {
+  @apply text-sm sm:text-base leading-relaxed;
+}
+
 /* Custom component utility classes */
 @layer components {
+  /* Container with responsive padding */
   .container-max-width {
-    @apply max-w-content px-5% mx-auto;
+    @apply max-w-content mx-auto w-full px-4 sm:px-5 md:px-6 lg:px-8;
   }
 
+  /* Card component - responsive sizing and touch-friendly */
   .card-media {
-    @apply flex flex-col border-4 border-cyan-300 rounded-[10px] text-white cursor-pointer bg-transparent text-left p-0;
+    @apply flex flex-col border-2 sm:border-4 border-cyan-300 rounded-lg sm:rounded-[10px] text-white cursor-pointer bg-transparent text-left p-0 transition-transform duration-200 hover:scale-105 active:scale-95;
   }
 
   .card-media img {
-    @apply w-full rounded-t-[8px];
+    @apply w-full rounded-t-lg sm:rounded-t-[8px] aspect-[2/3] object-cover;
   }
 
+  .card-media-content {
+    @apply flex flex-col gap-2 sm:gap-4 p-2 sm:p-3 md:p-4 text-xs sm:text-sm;
+  }
+
+  /* Status messages */
   .notice {
-    @apply text-gray-300;
+    @apply py-3 px-4 text-gray-300 text-sm sm:text-base;
   }
 
   .notice.error {
     @apply text-red-500;
   }
-}
 
-/* Responsive adjustments for modals and grid layouts */
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  /* Modal styles - responsive */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-60 z-40 flex items-center justify-center p-3 sm:p-4 md:p-6 lg:p-8;
+  }
+
+  .modal-content {
+    @apply relative w-full h-auto max-h-[90vh] sm:max-h-[85vh] md:w-[90vw] lg:w-[85vw] bg-white rounded-lg overflow-y-auto flex flex-col;
+  }
+
+  .modal-close-btn {
+    @apply absolute right-3 sm:right-4 top-3 sm:top-4 text-3xl sm:text-4xl text-cyan-300 cursor-pointer p-1 hover:text-white transition-colors;
+  }
+
+  /* Responsive grid - mobile first */
+  .responsive-grid {
+    @apply grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-6;
+  }
+
+  /* Responsive flex row - stacks on small screens */
+  .responsive-flex-row {
+    @apply flex flex-col gap-4 sm:gap-6 md:flex-row md:gap-6 lg:gap-8;
+  }
+
+  /* Touch-friendly buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-[10px] bg-primary-accent border border-primary-accent-border text-white font-bold text-sm sm:text-base hover:bg-opacity-75 active:bg-opacity-50 transition-all min-h-[44px] min-w-[44px];
   }
 }
 
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+/* Responsive typography adjustments */
+@layer base {
+  /* Mobile typography */
+  @screen sm {
+    /* Small screens and up */
   }
 
-  .flex.flex-row {
-    flex-direction: column !important;
+  @screen md {
+    /* Medium screens and up */
   }
 
-  .h-\[80vh\] {
-    height: auto !important;
-    max-width: 100% !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr !important;
+  @screen lg {
+    /* Large screens and up */
   }
 }
